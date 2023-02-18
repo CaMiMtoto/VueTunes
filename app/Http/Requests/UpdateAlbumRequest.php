@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAlbumRequest extends FormRequest
@@ -11,18 +12,21 @@ class UpdateAlbumRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'release_date' => ['required', 'date'],
+            'cover_image' => ['image', 'nullable', 'max:1024', 'mimes:jpeg,png,jpg,gif,svg'],
+            'description' => ['required', 'string'],
         ];
     }
 }

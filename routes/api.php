@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\GenreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,20 +24,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // group add Genre CRUD routes,use model binding to get Genre instance by slug
     Route::group(['prefix' => 'genres'], function () {
-        Route::get('/', 'GenreController@index');
-        Route::post('/', 'GenreController@store');
-        Route::get('/{genre:slug}', 'GenreController@show');
-        Route::put('/{genre:slug}', 'GenreController@update');
-        Route::delete('/{genre:slug}', 'GenreController@destroy');
+        Route::get('/', [GenreController::class, 'index']);
+        Route::post('/', [GenreController::class, 'store']);
+        Route::get('/{genre:slug}', [GenreController::class, 'show']);
+        Route::put('/{genre:slug}', [GenreController::class, 'update']);
+        Route::delete('/{genre:slug}', [GenreController::class, 'destroy']);
+
     });
 
-    // group add Album CRUD routes,use model binding to get Album instance by slug
+    // group add AlbumResource CRUD routes,use model binding to get AlbumResource instance by slug
     Route::group(['prefix' => 'albums'], function () {
-        Route::get('/', 'AlbumController@index');
-        Route::post('/', 'AlbumController@store');
-        Route::get('/{album:slug}', 'AlbumController@show');
-        Route::put('/{album:slug}', 'AlbumController@update');
-        Route::delete('/{album:slug}', 'AlbumController@destroy');
+        Route::get('/', [AlbumController::class, 'index']);
+        Route::post('/', [AlbumController::class, 'store']);
+        Route::get('/{album:slug}', [AlbumController::class, 'show']);
+        Route::put('/{album:slug}', [AlbumController::class, 'update']);
+        Route::delete('/{album:slug}', [AlbumController::class, 'destroy']);
     });
 
     // group add Song CRUD routes,use model binding to get Song instance by slug

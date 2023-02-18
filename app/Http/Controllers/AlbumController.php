@@ -4,58 +4,85 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
+use App\Http\Resources\AlbumResource;
 use App\Models\Album;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AlbumController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): Response
-    {
-        //
+        return AlbumResource::collection(
+            Album::query()
+                ->paginate()
+        )->response();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAlbumRequest $request): RedirectResponse
+    public function store(StoreAlbumRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $image = $request->file('cover_image');
+        if ($image) {
+            $path = $image->store(Album::COVER_IMAGE_PATH);
+            $fileName = basename($path);
+            $data['cover_image'] = $fileName;
+        }
+        $data['slug'] = Str::slug($data['title']) . '-' . uniqid();
+
+        $album = Album::create($data);
+
+        return AlbumResource::make($album)
+            ->response();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Album $album): Response
+    public function show(Album $album)
     {
-        //
+        return AlbumResource::make($album)
+            ->response();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Album $album): Response
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAlbumRequest $request, Album $album): RedirectResponse
+    public function update(UpdateAlbumRequest $request, Album $album)
     {
-        //
+        $data = $request->validated();
+
+        $image = $request->file('cover_image');
+        if ($image) {
+            $dir = Album::COVER_IMAGE_PATH;
+            $oldImage = $album->cover_image;
+            if ($oldImage) {
+                $oldImagePath = $dir . '/' . $oldImage;
+                if (Storage::exists($oldImagePath)) {
+                    Storage::delete($oldImagePath);
+                }
+            }
+
+            $path = $image->store($dir);
+            $fileName = basename($path);
+            $data['cover_image'] = $fileName;
+        }
+
+        $album->update($data);
+
+        return AlbumResource::make($album)
+            ->response();
     }
 
     /**
@@ -63,6 +90,17 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album): RedirectResponse
     {
-        //
+        // Delete the cover image
+        $dir = Album::COVER_IMAGE_PATH;
+        $oldImage = $album->cover_image;
+        if ($oldImage) {
+            $oldImagePath = $dir . '/' . $oldImage;
+            if (Storage::exists($oldImagePath)) {
+                Storage::delete($oldImagePath);
+            }
+        }
+        $album->delete();
+        return AlbumResource::make($album)
+            ->response();
     }
 }

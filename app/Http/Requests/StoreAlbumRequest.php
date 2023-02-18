@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAlbumRequest extends FormRequest
@@ -11,18 +12,37 @@ class StoreAlbumRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255', 'unique:albums'],
+            'release_date' => ['required', 'date'],
+            'cover_image' => ['image', 'nullable', 'max:1024', 'mimes:jpeg,png,jpg,gif,svg'],
+            'description' => ['required', 'string'],
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'A title is required',
+            'title.unique' => 'This title already exists',
+            'release_date.required' => 'A release date is required',
+            'cover_image.required' => 'A cover image is required',
+            'description.required' => 'A description is required',
         ];
     }
 }
