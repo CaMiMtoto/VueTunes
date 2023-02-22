@@ -1,7 +1,7 @@
 <template>
     <router-link :to="to"
                  active-class="text-primary bg-white"
-                 class="flex justify-start items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium">
+                 class="flex justify-start items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium hover:text-primary hover:bg-white">
         <slot></slot>
         <span>{{ text }}</span>
     </router-link>

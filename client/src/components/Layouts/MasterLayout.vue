@@ -16,12 +16,25 @@ import logo from '../../assets/vue.svg'
 import NavItem from "./NavItem.vue";
 import {Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/vue'
 import {useAuth} from "../../stores/auth.js";
+import {onMounted, ref} from "vue";
 
 const authStore = useAuth();
+
+const isOpen = ref(false);
+
+const toggle = () => {
+    isOpen.value = !isOpen.value;
+}
+onMounted(() => {
+    window.addEventListener("resize", function () {
+        isOpen.value = window.innerWidth > 992;
+    });
+    isOpen.value = window.innerWidth > 992;
+});
 </script>
 <template>
-    <div class="min-h-screen w-full flex bg-white">
-        <aside class="min-h-screen w-96  px-6 py-10">
+    <div class="min-h-screen w-full flex bg-[#F1F1F5]">
+        <aside class="min-h-screen w-96 border-r px-6 py-10" :class="{'close': !isOpen}">
             <img :src="logo" alt="logo" class="w-10">
             <nav class="flex flex-col my-3 gap-y-4 ">
                 <div class="text-gray-400 text-sm mt-4">Menu</div>
@@ -56,23 +69,24 @@ const authStore = useAuth();
         </aside>
         <div class="min-h-screen w-full bg-[#F9F9F9]">
             <nav class="px-6 py-6  flex gap-3 items-center justify-between">
-                <button class="bg-primary text-white rounded-full flex items-center justify-center p-2">
-                    <IconChevronLeft/>
+                <button type="button" @click="toggle"
+                        class="bg-primary text-white rounded-full flex items-center justify-center p-2">
+                    <IconChevronLeft class="transform " :class="{'rotate-180': !isOpen}"/>
                 </button>
-                <div class="relative md:w-1/2 mr-3">
+                <div class="relative md:w-1/2 mr-3 hidden md:block">
 
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <IconSearch class="w-4 text-gray-500"/>
                     </div>
                     <input id="member_email"
-                           class="bg-white border border-gray-100 text-gray-900 text-sm rounded-full focus:outline-none  block w-full pl-10 p-2.5"
+                           class="bg-white border border-gray-100 text-gray-900 text-sm rounded-full focus:outline-none  block w-full pl-10 p-2.5 focus:border-primary"
                            name="email_address" placeholder="Search.."
                            required="" type="email">
                 </div>
 
                 <div class="flex items-center">
                     <div class="mr-2">
-                       <div>{{ authStore.user.data.name}}</div>
+                        <div>{{ authStore.user.data.name }}</div>
                     </div>
                     <Menu as="div" class="relative inline-block text-left">
                         <div>
@@ -129,7 +143,7 @@ const authStore = useAuth();
                                 <div class="px-1 py-1">
                                     <MenuItem v-slot="{ active }">
                                         <button @click="authStore.logout()"
-                                            :class="[
+                                                :class="[
                                               active ? 'bg-primary text-white' : 'text-gray-900',
                                               'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                             ]"

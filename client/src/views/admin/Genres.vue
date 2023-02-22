@@ -129,7 +129,7 @@ onMounted(() => {
         <h1 class="text-xl font-medium mb-2">
             Manage Genres
         </h1>
-        <div class="mb-2 flex items-center justify-between">
+        <div class="mb-2 flex flex-col md:flex-row md:items-center gap-2 justify-between">
             <TextInput id="search" placeholder="Search ..." type="search" class="block"/>
             <primary-button class="btn btn-primary" @click="addNew">
                 Add New
