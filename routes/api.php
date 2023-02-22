@@ -27,7 +27,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/', [GenreController::class, 'index']);
         Route::post('/', [GenreController::class, 'store']);
         Route::get('/{genre:slug}', [GenreController::class, 'show']);
-        Route::put('/{genre:slug}', [GenreController::class, 'update']);
         Route::delete('/{genre:slug}', [GenreController::class, 'destroy']);
 
     });
@@ -37,7 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/', [AlbumController::class, 'index']);
         Route::post('/', [AlbumController::class, 'store']);
         Route::get('/{album:slug}', [AlbumController::class, 'show']);
-        Route::put('/{album:slug}', [AlbumController::class, 'update']);
+        Route::put('/{album}', [AlbumController::class, 'update']);
         Route::delete('/{album:slug}', [AlbumController::class, 'destroy']);
     });
 

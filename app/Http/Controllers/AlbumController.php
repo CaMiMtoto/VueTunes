@@ -33,7 +33,7 @@ class AlbumController extends Controller
         $data = $request->validated();
 
         $image = $request->file('cover_image');
-        if ($image) {
+        if (!empty($image)) {
             $path = $image->store(Album::COVER_IMAGE_PATH);
             $fileName = basename($path);
             $data['cover_image'] = $fileName;
@@ -64,7 +64,7 @@ class AlbumController extends Controller
         $data = $request->validated();
 
         $image = $request->file('cover_image');
-        if ($image) {
+        if (!empty($image)) {
             $dir = Album::COVER_IMAGE_PATH;
             $oldImage = $album->cover_image;
             if ($oldImage) {
@@ -77,6 +77,8 @@ class AlbumController extends Controller
             $path = $image->store($dir);
             $fileName = basename($path);
             $data['cover_image'] = $fileName;
+        } else {
+            $data['cover_image'] = $album->cover_image;
         }
 
         $album->update($data);
@@ -88,7 +90,7 @@ class AlbumController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Album $album): RedirectResponse
+    public function destroy(Album $album)
     {
         // Delete the cover image
         $dir = Album::COVER_IMAGE_PATH;

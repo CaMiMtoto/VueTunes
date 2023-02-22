@@ -25,7 +25,7 @@ class UpdateAlbumRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'release_date' => ['required', 'date'],
-            'cover_image' => ['image', 'nullable', 'max:1024', 'mimes:jpeg,png,jpg,gif,svg'],
+            'cover_image' => [ 'nullable', 'max:1024', 'mimes:jpeg,png,jpg,gif,svg'],
             'description' => ['required', 'string'],
         ];
     }

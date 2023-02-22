@@ -15,7 +15,10 @@ class GenreController extends Controller
 
     public function index(): JsonResponse
     {
-        $genres = Genre::all();
+        $genres = Genre::query()
+            ->withCount('songs')
+            ->orderBy('name')
+            ->paginate(10);
         return GenreResource::collection($genres)
             ->response();
     }
@@ -28,8 +31,14 @@ class GenreController extends Controller
     {
         $data = $request->validated();
 
-        $genre = Genre::query()
-            ->create($data);
+        $id = $request->input('id');
+        if ($id > 0) {
+            $genre = Genre::find($id);
+        } else {
+            $genre = new Genre();
+        }
+        $genre->name= $data['name'];
+        $genre->save();
         return GenreResource::make($genre)
             ->response();
     }

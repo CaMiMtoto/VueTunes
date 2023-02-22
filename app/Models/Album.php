@@ -58,7 +58,7 @@ class Album extends Model
 
 
     protected $appends = [
-        'cover_image',
+        'cover_image_url',
         'release_date',
     ];
 
@@ -76,7 +76,7 @@ class Album extends Model
     }
 
     // cover_image attribute
-    public function getCoverImageAttribute(): string
+    public function getCoverImageUrlAttribute(): string
     {
         return Storage::url(self::COVER_IMAGE_PATH . '/' . $this->attributes['cover_image']);
     }
