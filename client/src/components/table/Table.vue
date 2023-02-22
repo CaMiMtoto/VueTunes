@@ -1,0 +1,15 @@
+<template>
+    <table class="w-full text-sm text-left text-gray-500">
+        <slot></slot>
+    </table>
+</template>
+
+<script>
+export default {
+    name: "Table"
+}
+</script>
+
+<style scoped>
+
+</style>

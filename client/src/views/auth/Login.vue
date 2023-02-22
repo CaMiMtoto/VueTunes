@@ -66,6 +66,7 @@ import PrimaryButton from "../../components/PrimaryButton.vue";
 import GuestLayout from "../../components/Layouts/GuestLayout.vue";
 import Spinner from "../../components/Spinner.vue";
 import {useAuth} from "../../stores/auth.js";
+
 const authStore = useAuth();
 import router from "../../router/index.js";
 
@@ -87,7 +88,7 @@ const onSubmit = () => {
     authStore.login(form.value)
         .then(response => {
             form.value.loading = false;
-            router.push({name: 'admin.dashboard'});
+            router.push('/dashboard');
         })
         .catch(error => {
             form.value.loading = false;

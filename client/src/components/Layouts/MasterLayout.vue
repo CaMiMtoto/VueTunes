@@ -7,14 +7,21 @@ import {
     IconCirclePlus,
     IconChevronLeft,
     IconChevronRight,
-    IconSearch
+    IconSearch,
+    IconArchive,
+    IconChevronDown,
+    IconCopy, IconEdit, IconLogout, IconSettings, IconUser
 } from '@tabler/icons-vue';
 import logo from '../../assets/vue.svg'
 import NavItem from "./NavItem.vue";
+import {Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/vue'
+import {useAuth} from "../../stores/auth.js";
+
+const authStore = useAuth();
 </script>
 <template>
     <div class="min-h-screen w-full flex bg-white">
-        <aside class="min-h-screen w-96 bg-[#F2F1F5] px-6 py-10">
+        <aside class="min-h-screen w-96  px-6 py-10">
             <img :src="logo" alt="logo" class="w-10">
             <nav class="flex flex-col my-3 gap-y-4 ">
                 <div class="text-gray-400 text-sm mt-4">Menu</div>
@@ -63,8 +70,83 @@ import NavItem from "./NavItem.vue";
                            required="" type="email">
                 </div>
 
-                <div>
-                    <h1>Hello</h1>
+                <div class="flex items-center">
+                    <div class="mr-2">
+                       <div>{{ authStore.user.data.name}}</div>
+                    </div>
+                    <Menu as="div" class="relative inline-block text-left">
+                        <div>
+                            <MenuButton
+                                class="inline-flex w-10 h-10 items-center justify-center rounded-full bg-blue-200   text-sm font-medium text-primary-dark"
+                            >
+                                <IconUser/>
+                            </MenuButton>
+                        </div>
+
+                        <transition
+                            enter-active-class="transition duration-100 ease-out"
+                            enter-from-class="transform scale-95 opacity-0"
+                            enter-to-class="transform scale-100 opacity-100"
+                            leave-active-class="transition duration-75 ease-in"
+                            leave-from-class="transform scale-100 opacity-100"
+                            leave-to-class="transform scale-95 opacity-0"
+                        >
+                            <MenuItems
+                                class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div class="px-1 py-1">
+                                    <MenuItem v-slot="{ active }">
+                                        <button
+                                            :class="[
+                                              active ? 'bg-primary text-white' : 'text-gray-900',
+                                              'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                            ]"
+                                        >
+                                            <IconUser
+                                                :active="active"
+                                                class="mr-2 h-5 w-5"
+                                                aria-hidden="true"
+                                            />
+                                            Profile
+                                        </button>
+                                    </MenuItem>
+                                    <MenuItem v-slot="{ active }">
+                                        <button
+                                            :class="[
+                                              active ? 'bg-primary text-white' : 'text-gray-900',
+                                              'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                            ]"
+                                        >
+                                            <IconSettings
+                                                :active="active"
+                                                class="mr-2 h-5 w-5"
+                                                aria-hidden="true"
+                                            />
+                                            Settings
+                                        </button>
+                                    </MenuItem>
+                                </div>
+
+                                <div class="px-1 py-1">
+                                    <MenuItem v-slot="{ active }">
+                                        <button @click="authStore.logout()"
+                                            :class="[
+                                              active ? 'bg-primary text-white' : 'text-gray-900',
+                                              'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                            ]"
+                                        >
+                                            <IconLogout
+                                                :active="active"
+                                                class="mr-2 h-5 w-5"
+                                                aria-hidden="true"
+                                            />
+                                            Logout
+                                        </button>
+                                    </MenuItem>
+                                </div>
+                            </MenuItems>
+                        </transition>
+                    </Menu>
+                    <IconChevronDown/>
                 </div>
 
             </nav>
