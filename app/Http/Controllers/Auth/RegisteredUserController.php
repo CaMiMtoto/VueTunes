@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
         return \response()
             ->json([
                 'token' => $user->createToken('device_name')->plainTextToken,
+                'user' => $user,
             ]);
 
     }
