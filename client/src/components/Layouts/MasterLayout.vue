@@ -4,11 +4,8 @@ import {
     IconChartPie,
     IconDisc,
     IconPlaylist,
-    IconCirclePlus,
     IconChevronLeft,
-    IconChevronRight,
     IconSearch,
-    IconArchive,
     IconChevronDown,
     IconCopy, IconEdit, IconLogout, IconSettings, IconUser
 } from '@tabler/icons-vue';
@@ -39,31 +36,19 @@ onMounted(() => {
             <nav class="flex flex-col my-3 gap-y-4 ">
                 <div class="text-gray-400 text-sm mt-4">Menu</div>
                 <nav-item to="/dashboard" text="Dashboard">
-                    <IconChartPie/>
+                    <IconChartPie stroke-width="1"/>
                 </nav-item>
-                <nav-item to="/admin/genres" text="Genres">
-                    <IconCategory/>
+                <nav-item to="/admin/genres" text="Manage Genres">
+                    <IconCategory stroke-width="1"/>
                 </nav-item>
 
-                <nav-item to="/admin/albums" text="Albums">
-                    <IconDisc/>
+                <nav-item to="/admin/albums" text="Manage Albums">
+                    <IconDisc stroke-width="1"/>
                 </nav-item>
-                <nav-item to="/admin/songs" text="Songs">
-                    <IconPlaylist/>
+                <nav-item to="/admin/songs" text="Manage Songs">
+                    <IconPlaylist stroke-width="1"/>
                 </nav-item>
-                <div>
-                    <div class="text-gray-400 text-sm  flex justify-between">
-                        <span>Playlists</span>
-                        <a href="">
-                            <IconCirclePlus/>
-                        </a>
-                    </div>
-                    <nav-item to="/" text="Medications" class="font-normal py-1"></nav-item>
-                    <nav-item to="/" text="About Space" class="font-normal py-1"></nav-item>
-                    <nav-item to="/" text="Sleep" class="font-normal py-1"></nav-item>
-                    <nav-item to="/" text="Bookcast" class="font-normal py-1"></nav-item>
-                    <nav-item to="/" text="Motivations" class="font-normal py-1"></nav-item>
-                </div>
+
 
             </nav>
         </aside>
@@ -91,7 +76,7 @@ onMounted(() => {
                     <Menu as="div" class="relative inline-block text-left">
                         <div>
                             <MenuButton
-                                class="inline-flex w-10 h-10 items-center justify-center rounded-full bg-blue-200   text-sm font-medium text-primary-dark"
+                                class="inline-flex w-10 h-10 items-center justify-center rounded-full bg-primary-light   text-sm font-medium text-primary-dark"
                             >
                                 <IconUser/>
                             </MenuButton>

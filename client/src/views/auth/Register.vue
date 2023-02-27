@@ -104,7 +104,7 @@ const onSubmit = () => {
     authStore.register(form.value)
         .then(() => {
             form.value.loading = false;
-            router.push('/dashboard');
+            window.location = '/dashboard';
         })
         .catch((error) => {
             form.value.errors = error.response.data.errors;

@@ -19,10 +19,17 @@ class AlbumController extends Controller
      */
     public function index(): JsonResponse
     {
-        return AlbumResource::collection(
-            Album::query()
-                ->paginate()
-        )->response();
+        $column = request('order', 'id');
+        $direction = request('dir', 'desc');
+        $perPage = request()->input('per_page', 10);
+
+        $resource = Album::query()
+            ->withCount('songs')
+            ->orderBy($column, $direction)
+            ->paginate($perPage);
+
+        return AlbumResource::collection($resource)
+            ->response();
     }
 
     /**

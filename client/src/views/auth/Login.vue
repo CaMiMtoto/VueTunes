@@ -88,7 +88,9 @@ const onSubmit = () => {
     authStore.login(form.value)
         .then(response => {
             form.value.loading = false;
-            router.push('/dashboard');
+            // router.push('/dashboard');
+            // redirect to dashboard
+            window.location = '/dashboard';
         })
         .catch(error => {
             form.value.loading = false;

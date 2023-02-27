@@ -25,7 +25,7 @@ class StoreAlbumRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255', 'unique:albums'],
             'release_date' => ['required', 'date'],
-            'cover_image' => ['image', 'max:1024', 'mimes:jpeg,png,jpg,gif,svg'],
+            'cover_image' => ['image', 'max:1024', 'mimes:jpeg,png,jpg,gif,svg,webp'],
             'description' => ['required', 'string'],
         ];
     }
