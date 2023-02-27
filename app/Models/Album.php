@@ -4,7 +4,11 @@ namespace App\Models;
 
 use App\Traits\Slugify;
 use Carbon\Carbon;
+use Database\Factories\AlbumFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,21 +26,21 @@ use Illuminate\Support\Str;
  * @property string $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Song> $songs
+ * @property-read Collection<int, Song> $songs
  * @property-read int|null $songs_count
- * @method static \Database\Factories\AlbumFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Album newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Album newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Album query()
- * @method static \Illuminate\Database\Eloquent\Builder|Album whereCoverImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Album whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Album whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Album whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Album whereReleaseDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Album whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Album whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Album whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static AlbumFactory factory($count = null, $state = [])
+ * @method static Builder|Album newModelQuery()
+ * @method static Builder|Album newQuery()
+ * @method static Builder|Album query()
+ * @method static Builder|Album whereCoverImage($value)
+ * @method static Builder|Album whereCreatedAt($value)
+ * @method static Builder|Album whereDescription($value)
+ * @method static Builder|Album whereId($value)
+ * @method static Builder|Album whereReleaseDate($value)
+ * @method static Builder|Album whereSlug($value)
+ * @method static Builder|Album whereTitle($value)
+ * @method static Builder|Album whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Album extends Model
 {

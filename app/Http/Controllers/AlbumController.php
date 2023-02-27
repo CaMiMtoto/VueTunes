@@ -14,9 +14,17 @@ use Illuminate\Support\Str;
 
 class AlbumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function all()
+    {
+        $albums = Album::query()
+            ->orderBy('title')
+            ->get();
+        return AlbumResource::collection($albums)
+            ->response();
+    }
+
+
+
     public function index(): JsonResponse
     {
         $column = request('order', 'id');

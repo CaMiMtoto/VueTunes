@@ -4,65 +4,79 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSongRequest;
 use App\Http\Requests\UpdateSongRequest;
+use App\Http\Resources\SongResource;
 use App\Models\Song;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 class SongController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): Response
+
+    public function index(): JsonResponse
     {
-        //
+        $column = request('order', 'id');
+        $direction = request('dir', 'desc');
+
+        $perPage = request()->input('per_page', 10);
+
+        $resource = Song::query()
+            ->with(['album', 'genre'])
+            ->orderBy($column, $direction)
+            ->paginate($perPage);
+
+        return SongResource::collection($resource)
+            ->response();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): Response
+    public function store(StoreSongRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $file = $request->file('file');
+
+        if (!empty($file)) {
+            $path = $file->store(Song::MUSIC_PATH);
+            $fileName = basename($path);
+            $data['file'] = $fileName;
+        }
+        $data['slug'] = Str::slug($data['title']) . '-' . uniqid();
+        $song = Song::create($data);
+
+        return SongResource::make($song)
+            ->response();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSongRequest $request): RedirectResponse
+    public function show(Song $song)
     {
-        //
+        $song->load(['album', 'genre']);
+        return SongResource::make($song)
+            ->response();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Song $song): Response
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Song $song): Response
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSongRequest $request, Song $song): RedirectResponse
+    public function update(UpdateSongRequest $request, Song $song)
     {
-        //
+        $data = $request->validated();
+
+        $song->update($data);
+
+        return SongResource::make($song)
+            ->response();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Song $song): RedirectResponse
+    public function destroy(Song $song)
     {
-        //
+        $song->delete();
+
+        return SongResource::make($song)
+            ->response();
     }
 }

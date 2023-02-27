@@ -13,6 +13,15 @@ use Illuminate\Http\Response;
 class GenreController extends Controller
 {
 
+    public function all()
+    {
+        $genres = Genre::query()
+            ->orderBy('name')
+            ->get();
+        return GenreResource::collection($genres)
+            ->response();
+    }
+
     public function index(): JsonResponse
     {
         $genres = Genre::query()

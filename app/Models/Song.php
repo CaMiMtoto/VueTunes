@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Song
@@ -44,19 +48,11 @@ class Song extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'length',
-        'file',
-        'description',
-        'genre_id',
-        'album_id',
-    ];
+    const MUSIC_PATH = 'songs/musics';
+
 
     protected $appends = [
         'duration',
-        'cover_image_url',
         'file_url',
     ];
 
@@ -71,27 +67,24 @@ class Song extends Model
         return $this->belongsTo(Album::class);
     }
 
-    // cover_image attribute
-    public function getCoverImageUrlAttribute($value): string
-    {
-        return $value ? asset('storage/' . $value) : '';
-    }
 
     // length attribute
 
-    public function getDurationAttribute($value): string
+    public function getDurationAttribute(): string
     {
+        $value = $this->attributes['length'];
         $minutes = floor($value / 60);
         $seconds = $value % 60;
-
         return sprintf('%02d:%02d', $minutes, $seconds);
     }
 
     // file attribute
 
-    public function getFileUrlAttribute($value): string
+    public function getFileUrlAttribute(): string
     {
-        return $value ? asset('storage/' . $value) : '';
+        $file = $this->attributes['file'];
+        return $file ? Storage::url(self::MUSIC_PATH . '/' . $file) : '';
     }
+
 
 }

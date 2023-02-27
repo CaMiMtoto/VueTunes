@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\SongController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // group add Genre CRUD routes,use model binding to get Genre instance by slug
     Route::group(['prefix' => 'genres'], function () {
         Route::get('/', [GenreController::class, 'index']);
+        Route::get('/all', [GenreController::class, 'all']);
         Route::post('/', [GenreController::class, 'store']);
         Route::get('/{genre:slug}', [GenreController::class, 'show']);
         Route::delete('/{genre:slug}', [GenreController::class, 'destroy']);
@@ -34,6 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // group add AlbumResource CRUD routes,use model binding to get AlbumResource instance by slug
     Route::group(['prefix' => 'albums'], function () {
         Route::get('/', [AlbumController::class, 'index']);
+        Route::get('/all', [AlbumController::class, 'all']);
         Route::post('/', [AlbumController::class, 'store']);
         Route::get('/{album:slug}', [AlbumController::class, 'show']);
         Route::put('/{album}', [AlbumController::class, 'update']);
@@ -42,11 +45,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // group add Song CRUD routes,use model binding to get Song instance by slug
     Route::group(['prefix' => 'songs'], function () {
-        Route::get('/', 'SongController@index');
-        Route::post('/', 'SongController@store');
-        Route::get('/{song:slug}', 'SongController@show');
-        Route::put('/{song:slug}', 'SongController@update');
-        Route::delete('/{song:slug}', 'SongController@destroy');
+        Route::get('/', [SongController::class, 'index']);
+        Route::post('/', [SongController::class, 'store']);
+        Route::get('/{song:slug}', [SongController::class, 'show']);
+        Route::put('/{song}', [SongController::class, 'update']);
+        Route::delete('/{song:slug}', [SongController::class, 'destroy']);
+
     });
 
 

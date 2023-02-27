@@ -2,15 +2,18 @@
 
 namespace App\Http\Resources;
 
-class SongResource
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class SongResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  mixed  $request
+     * @param mixed $request
      * @return array<int|string, mixed>
      */
-    public function toArray($request): array
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
@@ -18,12 +21,12 @@ class SongResource
             'slug' => $this->slug,
             'length' => $this->length,
             'file' => $this->file,
-            'description' => $this->description,
             'genre_id' => $this->genre_id,
             'album_id' => $this->album_id,
             'duration' => $this->duration,
-            'cover_image_url' => $this->cover_image_url,
             'file_url' => $this->file_url,
+            'album' => AlbumResource::make($this->whenLoaded('album')),
+            'genre' => GenreResource::make($this->whenLoaded('genre')),
         ];
     }
 }
