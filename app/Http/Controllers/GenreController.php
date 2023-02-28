@@ -16,6 +16,7 @@ class GenreController extends Controller
     public function all()
     {
         $genres = Genre::query()
+            ->withCount('songs')
             ->orderBy('name')
             ->get();
         return GenreResource::collection($genres)

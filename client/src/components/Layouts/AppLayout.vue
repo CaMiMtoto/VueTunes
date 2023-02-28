@@ -16,12 +16,9 @@ import {
     IconPlayerSkipForward,
     IconPlayerPlayFilled,
     IconRepeat,
-    IconRepeatOnce,
-    IconRepeatOff,
     IconHeart,
-    IconVolume,
     IconVolume2,
-    IconVolume3,
+
 } from '@tabler/icons-vue';
 import logo from '../../assets/vue.svg'
 import NavItem from "./NavItem.vue";
@@ -44,25 +41,25 @@ onMounted(() => {
 });
 </script>
 <template>
-    <div class="min-h-screen w-full flex bg-[#F1F1F5] relative">
+    <div class="min-h-screen w-full flex bg-[#F9F9F9] relative">
         <aside class="min-h-screen w-96 pb-20  px-6 py-10" :class="{'close': !isOpen}">
             <img :src="logo" alt="logo" class="w-10">
             <nav class="flex flex-col my-3 gap-y-4 ">
                 <div class="text-gray-400 text-sm mt-4">Menu</div>
                 <nav-item to="/" text="Home">
-                    <IconSmartHome stroke-width="1"/>
+                    <IconSmartHome/>
                 </nav-item>
                 <nav-item to="/genres" text="Genres">
-                    <IconCategory stroke-width="1"/>
+                    <IconCategory/>
                 </nav-item>
 
                 <nav-item to="/albums" text="Albums">
-                    <IconDisc stroke-width="1"/>
+                    <IconDisc/>
                 </nav-item>
                 <nav-item to="/songs" text="Songs">
-                    <IconPlaylist stroke-width="1"/>
+                    <IconPlaylist/>
                 </nav-item>
-                <div>
+<!--                <div>
                     <div class="text-gray-400 text-sm  flex justify-between">
                         <span>Playlists</span>
                         <a href="">
@@ -74,7 +71,7 @@ onMounted(() => {
                     <nav-item to="/me" text="Sleep" class="font-normal py-1"></nav-item>
                     <nav-item to="/me" text="Book cast" class="font-normal py-1"></nav-item>
                     <nav-item to="/me" text="Motivations" class="font-normal py-1"></nav-item>
-                </div>
+                </div>-->
 
             </nav>
         </aside>
@@ -120,7 +117,7 @@ onMounted(() => {
                                 class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <div class="px-1 py-1">
                                     <MenuItem v-slot="{ active }">
-                                        <button
+                                        <router-link to="/dashboard"
                                             :class="[
                                               active ? 'bg-primary text-white' : 'text-gray-900',
                                               'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -131,23 +128,8 @@ onMounted(() => {
                                                 class="mr-2 h-5 w-5"
                                                 aria-hidden="true"
                                             />
-                                            Profile
-                                        </button>
-                                    </MenuItem>
-                                    <MenuItem v-slot="{ active }">
-                                        <button
-                                            :class="[
-                                              active ? 'bg-primary text-white' : 'text-gray-900',
-                                              'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                            ]"
-                                        >
-                                            <IconSettings
-                                                :active="active"
-                                                class="mr-2 h-5 w-5"
-                                                aria-hidden="true"
-                                            />
-                                            Settings
-                                        </button>
+                                            Dashboard
+                                        </router-link>
                                     </MenuItem>
                                 </div>
 

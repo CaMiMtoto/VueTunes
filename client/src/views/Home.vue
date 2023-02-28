@@ -2,6 +2,8 @@
 import {IconChevronRight, IconPlayerPlayFilled} from "@tabler/icons-vue"
 import {onMounted, ref} from "vue";
 import http from "../config/axiosClient.js";
+import AlbumCard from "../components/AlbumCard.vue";
+import SongCard from "../components/SongCard.vue";
 
 let albums = ref([]);
 let songs = ref([]);
@@ -17,7 +19,7 @@ let fetchAlbums = () => {
         });
 }
 
-let fethSongs = () => {
+let fetchSongs = () => {
     http.get('/songs?per_page=4')
         .then((response) => {
 
@@ -31,7 +33,7 @@ let fethSongs = () => {
 onMounted(() => {
     fetchAlbums();
 
-    fethSongs();
+    fetchSongs();
 });
 
 
@@ -48,21 +50,8 @@ onMounted(() => {
                 </router-link>
             </div>
             <div class="grid md:grid-cols-4 grid-cols-1 gap-3 md:gap-8" v-if="albums.length">
-                <div v-for="item in albums" class="rounded-lg hover:opacity-60 cursor-pointer relative">
-                    <img :src="item.cover_image_url" class="rounded-lg h-44 w-full object-cover object-top"
-                         alt="album cover"/>
-                    <div class="mt-3 py-2">
-                        <h3 class="mb-3 font-medium">{{ item.title }}</h3>
-                        <p class="text-xs text-gray-500 font-bold">{{ $filters.dateFormat(item.release_date) }}</p>
-                    </div>
-
-                    <div class="absolute bottom-24 left-2">
-                        <span
-                            class="bg-primary-light text-primary text-xs font-medium  px-2.5 py-1 rounded-lg">
-                            {{ item.songs_count }} songs
-                        </span>
-                    </div>
-                </div>
+                <AlbumCard v-for="item in albums" class="rounded-lg hover:opacity-60 cursor-pointer relative"
+                           :item="item"/>
             </div>
             <div v-else>
                 <div class="flex justify-center items-center h-64">
@@ -86,18 +75,12 @@ onMounted(() => {
                     <IconChevronRight/>
                 </router-link>
             </div>
-            <div class="grid md:grid-cols-4 grid-cols-1 gap-4 md:gap-8" v-if="songs.length">
-                <div v-for="item in songs"
-                     class="rounded-lg hover:opacity-60 <!--bg-primary-light/20 p-3--> cursor-pointer relative">
-                    <img :src="item.album.cover_image_url" class="rounded-lg h-44 object-cover w-full object-top"
-                         alt="album cover"/>
-                    <div class="mt-3 py-2">
-                        <h3 class="mb-3 font-medium">{{ item.title }}</h3>
-                        <p class="text-xs text-gray-500 font-bold">{{ item.duration }}</p>
-                    </div>
 
-                </div>
+            <div class="mb-4" v-if="songs.length">
+                <song-card :item="item" v-for="item in songs"
+                           class="rounded-lg hover:opacity-60 cursor-pointer relative"/>
             </div>
+
             <div v-else>
                 <div class="flex justify-center items-center h-64">
                     <!--                create a callout component-->
