@@ -9,7 +9,7 @@ It is built using Laravel and Vue.js.
 2. Run ```composer install```
 3. Run migrations ```php artisan migrate```
 4. Seed the database ```php artisan db:seed``` and Run ```php artisan serve```
-5. Cd into the frontend directory ```cd client-app``` and run ```npm install```
+5. Cd into the frontend directory ```cd client``` and run ```npm install```
 6. Run ```npm run dev``` to compile the frontend assets
 
 ## Usage
@@ -19,6 +19,8 @@ It is built using Laravel and Vue.js.
 3. Upload a song by clicking on the upload button
 4. Click on the song to play it
 5. Click on the song again to pause it
+
+
 
 
 
