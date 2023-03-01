@@ -31,13 +31,12 @@ onMounted(() => {
 
 <template>
     <div>
-        <h1>
-            Songs
-        </h1>
+        <h1 class="mb-4 font-bold">Songs</h1>
 
-        <div class="" v-if="songs.length">
-            <SongCard v-for="item in songs" class="rounded-lg hover:opacity-60 cursor-pointer relative"
-                      :item="item"/>
+        <div class="grid md:grid-cols-2 grid-cols-1 gap-2 md:gap-2 mb-4" v-if="songs.length">
+            <div v-for="item in songs">
+                <SongCard :item="item"/>
+            </div>
         </div>
     </div>
 </template>

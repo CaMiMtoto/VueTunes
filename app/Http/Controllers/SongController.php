@@ -47,11 +47,6 @@ class SongController extends Controller
 
         $file = $request->file('file');
 
-        if (!empty($file)) {
-            $path = $file->store(Song::MUSIC_PATH);
-            $fileName = basename($path);
-            $data['file'] = $fileName;
-        }
         $data['slug'] = Str::slug($data['title']) . '-' . uniqid();
         $song = Song::create($data);
 

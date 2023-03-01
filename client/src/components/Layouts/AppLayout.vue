@@ -166,51 +166,6 @@ onMounted(() => {
                 <router-view></router-view>
             </main>
         </div>
-        <div
-            class="fixed flex-col flex md:flex-row justify-between items-center bottom-0 bg-white py-2 w-full border-t-4 border-primary shadow px-8 py-10">
-            <!--            design a music player-->
-            <div class="flex-col flex gap-2">
-                <h5>The Beginning of the Universe</h5>
-                <p class="text-gray-500 text-xs">
-                    <router-link to="">
-                        The Beginning of the Universe
-                    </router-link>
-                </p>
-            </div>
-            <div class="flex gap-2">
-                <button type="button" class=" rounded-full w-10 h-10 flex items-center justify-center text-gray-500">
-                    <IconArrowsShuffle/>
-                </button>
-                <button type="button" class=" rounded-full w-10 h-10 flex items-center justify-center text-gray-500">
-                    <IconPlayerSkipBack/>
-                </button>
-                <button type="button"
-                        class="bg-primary rounded-full w-10 h-10 flex items-center justify-center text-white">
-                    <IconPlayerPlayFilled/>
-                </button>
-                <button type="button" class=" rounded-full w-10 h-10 flex items-center justify-center text-gray-500">
-                    <IconPlayerSkipForward/>
-                </button>
-                <button type="button" class=" rounded-full w-10 h-10 flex items-center justify-center text-gray-500">
-                    <IconRepeat/>
-                </button>
-            </div>
-            <div class="flex items-center cursor-pointer">
-                <button type="button" class=" rounded-full w-10 h-10 flex items-center justify-center text-gray-500">
-                    <IconHeart/>
-                </button>
-                <button type="button" class=" rounded-full w-10 h-10 flex items-center justify-center text-gray-500">
-                    <IconCirclePlus/>
-                </button>
-
-                <button type="button" class=" rounded-full w-10 h-10 flex items-center justify-center text-gray-500">
-                    <IconVolume2/>
-                </button>
-                <div class="w-44 bg-gray-300 h-2 rounded">
-                    <div class="w-20 bg-primary h-2 rounded-l"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 

@@ -8,7 +8,7 @@
             <div
                 class="text-primary-dark rounded-lg  border border-primary-light p-4 h-44 flex items-baseline justify-end flex-col bg-primary-light">
                 <h2 class="text-5xl font-bold">
-                    {{ homeData.total_songs}}
+                    {{ homeData.total_songs }}
                 </h2>
                 <p class="text-primary-dark font-bold mt-5">
                     Total Songs
@@ -17,7 +17,7 @@
             <div
                 class="text-indigo-500 rounded-lg  border border-indigo-100 p-4 h-44 flex items-baseline justify-end flex-col bg-indigo-50">
                 <h2 class="text-5xl font-bold">
-                    {{ homeData.total_albums}}
+                    {{ homeData.total_albums }}
                 </h2>
                 <p class="text-indigo-500 font-bold mt-5">
                     Total Albums
@@ -25,10 +25,10 @@
             </div>
 
 
-
-            <div class="text-red-500 rounded-lg  border border-red-100 p-4 h-44 flex items-baseline justify-end flex-col bg-red-50">
+            <div
+                class="text-red-500 rounded-lg  border border-red-100 p-4 h-44 flex items-baseline justify-end flex-col bg-red-50">
                 <h2 class="text-5xl font-bold">
-                    {{ homeData.total_genres}}
+                    {{ homeData.total_genres }}
                 </h2>
                 <p class="text-red-500 font-bold mt-5">
                     Total Genres
@@ -41,8 +41,10 @@
             <h2 class="mb-4 font-bold">
                 Recently Added Songs
             </h2>
-            <div v-for="item in songs">
-                <SongCard :item="item"/>
+            <div class="grid md:grid-cols-2 grid-cols-1 gap-2 md:gap-2">
+                <div v-for="item in songs">
+                    <SongCard :item="item"/>
+                </div>
             </div>
         </div>
 

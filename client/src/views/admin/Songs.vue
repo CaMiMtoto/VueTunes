@@ -38,18 +38,13 @@ function resetForm() {
     songForm.value.title = '';
     songForm.value.genre_id = '';
     songForm.value.album_id = '';
-    songForm.value.file = null;
     songForm.value.length = '';
     songForm.value.loading = false;
     songForm.value.errors = {
         title: [],
         genre_id: [],
         album_id: [],
-        file: []
     };
-    songPreview.value = null;
-    clearSongFileInput();
-
 }
 
 function addNew() {
@@ -71,12 +66,10 @@ const songForm = ref({
     genre_id: '',
     album_id: '',
     length:'',
-    file: null,
     errors: {
         title: [],
         genre_id: [],
         album_id: [],
-        file: []
     },
     loading: false
 });
@@ -104,7 +97,6 @@ const deleteItem = (slug) => {
                 .catch(error => {
                     console.log(error);
                 });
-
         }
     })
 }
@@ -132,14 +124,12 @@ const saveChanges = () => {
     songForm.value.errors = {
         title: [],
         release_date: [],
-        cover_image: [],
         description: [],
     };
     let url = '/songs';
 
     const formData = new FormData();
     formData.append('title', songForm.value.title);
-    formData.append('file', songInput.value.files[0] ?? '');
     formData.append('genre_id', songForm.value.genre_id);
     formData.append('album_id', songForm.value.album_id);
     formData.append('length', songForm.value.length);
@@ -172,12 +162,11 @@ const edit = (item) => {
     songForm.value.genre_id = item.genre_id;
     songForm.value.album_id = item.album_id;
     songForm.value.length = item.length;
-    songPreview.value = item.file;
     openModal();
 }
 
 let getGenres = () => {
-    http.get('/genres')
+    http.get('/genres/all')
         .then(response => {
             genres.value = response.data.data;
         })
@@ -187,7 +176,7 @@ let getGenres = () => {
 }
 
 let getAlbums = () => {
-    http.get('/albums')
+    http.get('/albums/all')
         .then(response => {
             albums.value = response.data.data;
         })
@@ -203,33 +192,7 @@ onMounted(() => {
 });
 
 
-const updateSongPreview = () => {
-    const photo = songInput.value.files[0];
 
-    if (!photo) return;
-
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-        songPreview.value = e.target.result;
-    };
-
-    reader.readAsDataURL(photo);
-};
-
-const selectNewPhoto = () => {
-    songInput.value.click();
-};
-
-const clearSongFileInput = () => {
-    if (songInput.value?.value) {
-        songInput.value.value = null;
-    }
-};
-const deleteSong = () => {
-    songPreview.value = null;
-    clearSongFileInput();
-};
 
 </script>
 
@@ -253,7 +216,6 @@ const deleteSong = () => {
                     <Th>Genre</Th>
                     <Th>Album</Th>
                     <Th>Length</Th>
-                    <th>Download</th>
                     <Th></Th>
                 </tr>
                 </Thead>
@@ -263,11 +225,6 @@ const deleteSong = () => {
                     <Td>{{ item.genre.name }}</Td>
                     <Td>{{ item.album.title }}</Td>
                     <Td>{{ item.duration }}</Td>
-                    <Td>
-                        <a :href="item.file_url" target="_blank" class="text-blue-500 hover:text-blue-600">
-                            Download
-                        </a>
-                    </Td>
                     <Td class="text-right">
                         <div class="flex items-center gap-2">
                             <primary-icon-button @click="edit(item)">
@@ -284,31 +241,15 @@ const deleteSong = () => {
         </div>
 
 
-        <pagination :page-data="pageData" @page-changed="fetchsongs"/>
+        <pagination :page-data="pageData" @page-changed="fetchSongs"/>
 
 
         <modal :is-open="isOpen" title="Album">
             <template #title>
-                Album
+                Song
             </template>
 
             <template #content>
-                <FormGroup>
-                    <div class="flex gap-2 items-center">
-
-                        <SecondaryButton class="mt-2  w-full py-3" type="button" @click.prevent="selectNewPhoto">
-                            Select a Song
-                        </SecondaryButton>
-                        <input
-                            ref="songInput"
-                            type="file"
-                            class="hidden"
-                            @change="updateSongPreview"
-                        >
-                    </div>
-                    <InputError v-if="songForm.errors.file" :message="songForm.errors.file[0]"/>
-
-                </FormGroup>
                 <FormGroup>
                     <InputLabel for="title" class="block">
                         Title

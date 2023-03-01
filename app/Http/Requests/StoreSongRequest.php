@@ -25,7 +25,6 @@ class StoreSongRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'length' => ['required', 'integer', 'min:1'],
-            'file' => ['required', 'file', 'mimes:mp3,MP3', 'max:' . (10240 * 10)],
             'genre_id' => ['required', 'integer', 'exists:genres,id'],
             'album_id' => ['required', 'integer', 'exists:albums,id']
         ];

@@ -76,9 +76,11 @@ onMounted(() => {
                 </router-link>
             </div>
 
-            <div class="mb-4" v-if="songs.length">
-                <song-card :item="item" v-for="item in songs"
-                           class="rounded-lg hover:opacity-60 cursor-pointer relative"/>
+
+            <div class="grid md:grid-cols-2 grid-cols-1 gap-2 md:gap-2 mb-4" v-if="songs.length">
+                <div v-for="item in songs">
+                    <SongCard :item="item"/>
+                </div>
             </div>
 
             <div v-else>

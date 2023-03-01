@@ -48,12 +48,10 @@ class Song extends Model
 {
     use HasFactory;
 
-    const MUSIC_PATH = 'songs/musics';
 
 
     protected $appends = [
-        'duration',
-        'file_url',
+        'duration'
     ];
 
 
@@ -68,23 +66,15 @@ class Song extends Model
     }
 
 
-    // length attribute
-
     public function getDurationAttribute(): string
     {
         $value = $this->attributes['length'];
         $minutes = floor($value / 60);
         $seconds = $value % 60;
-        return sprintf('%02d:%02d', $minutes, $seconds);
+        return sprintf('%02d:%02d min', $minutes, $seconds);
     }
 
-    // file attribute
 
-    public function getFileUrlAttribute(): string
-    {
-        $file = $this->attributes['file'];
-        return $file ? Storage::url(self::MUSIC_PATH . '/' . $file) : '';
-    }
 
 
 }

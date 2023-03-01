@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSongRequest extends FormRequest
@@ -11,18 +12,31 @@ class UpdateSongRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'length' => ['required', 'integer', 'min:1'],
+            'genre_id' => ['required', 'integer', 'exists:genres,id'],
+            'album_id' => ['required', 'integer', 'exists:albums,id']
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'genre_id.exists' => 'The genre does not exist.',
+            'album_id.exists' => 'The album does not exist.',
+            'genre_id.required' => 'The genre is required.',
+            'album_id.required' => 'The album is required.'
         ];
     }
 }

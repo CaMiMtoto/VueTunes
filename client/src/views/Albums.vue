@@ -36,7 +36,7 @@ onMounted(() => {
 </script>
 <template>
     <div>
-        <h1 class="mb-4">
+        <h1  class="mb-4 font-bold">
             Albums
         </h1>
 
