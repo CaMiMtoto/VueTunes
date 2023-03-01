@@ -3,24 +3,14 @@ import {
     IconCategory,
     IconDisc,
     IconPlaylist,
-    IconCirclePlus,
     IconChevronLeft,
     IconSearch,
     IconChevronDown,
     IconSmartHome,
     IconLogout,
-    IconSettings,
-    IconUser,
-    IconArrowsShuffle,
-    IconPlayerSkipBack,
-    IconPlayerSkipForward,
-    IconPlayerPlayFilled,
-    IconRepeat,
-    IconHeart,
-    IconVolume2,
-
+    IconUser
 } from '@tabler/icons-vue';
-import logo from '../../assets/vue.svg'
+import logo from '../../assets/logo.png'
 import NavItem from "./NavItem.vue";
 import {Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/vue'
 import {useAuth} from "../../stores/auth.js";
@@ -43,7 +33,7 @@ onMounted(() => {
 <template>
     <div class="min-h-screen w-full flex bg-[#F9F9F9] relative">
         <aside class="min-h-screen w-96 pb-20  px-6 py-10" :class="{'close': !isOpen}">
-            <img :src="logo" alt="logo" class="w-10">
+            <img :src="logo" alt="logo" class="">
             <nav class="flex flex-col my-3 gap-y-4 ">
                 <div class="text-gray-400 text-sm mt-4">Menu</div>
                 <nav-item to="/" text="Home">
@@ -59,26 +49,26 @@ onMounted(() => {
                 <nav-item to="/songs" text="Songs">
                     <IconPlaylist/>
                 </nav-item>
-<!--                <div>
-                    <div class="text-gray-400 text-sm  flex justify-between">
-                        <span>Playlists</span>
-                        <a href="">
-                            <IconCirclePlus/>
-                        </a>
-                    </div>
-                    <nav-item to="/me" text="Medications" class="font-normal py-1"></nav-item>
-                    <nav-item to="/me" text="About Space" class="font-normal py-1"></nav-item>
-                    <nav-item to="/me" text="Sleep" class="font-normal py-1"></nav-item>
-                    <nav-item to="/me" text="Book cast" class="font-normal py-1"></nav-item>
-                    <nav-item to="/me" text="Motivations" class="font-normal py-1"></nav-item>
-                </div>-->
+                <!--                <div>
+                                    <div class="text-gray-400 text-sm  flex justify-between">
+                                        <span>Playlists</span>
+                                        <a href="">
+                                            <IconCirclePlus/>
+                                        </a>
+                                    </div>
+                                    <nav-item to="/me" text="Medications" class="font-normal py-1"></nav-item>
+                                    <nav-item to="/me" text="About Space" class="font-normal py-1"></nav-item>
+                                    <nav-item to="/me" text="Sleep" class="font-normal py-1"></nav-item>
+                                    <nav-item to="/me" text="Book cast" class="font-normal py-1"></nav-item>
+                                    <nav-item to="/me" text="Motivations" class="font-normal py-1"></nav-item>
+                                </div>-->
 
             </nav>
         </aside>
         <div class="min-h-screen w-full pb-20 bg-[#F9F9F9]">
             <nav class="px-6 py-6  flex gap-3 items-center justify-between">
                 <button type="button" @click="toggle"
-                        class="bg-primary text-white rounded-full flex items-center justify-center p-2">
+                        class="bg-primary text-white rounded-full flex items-center justify-center p-2 hover:bg-primary-dark">
                     <IconChevronLeft class="transform " :class="{'rotate-180': !isOpen}"/>
                 </button>
                 <div class="relative md:w-1/2 mr-3 hidden md:block">
@@ -118,7 +108,7 @@ onMounted(() => {
                                 <div class="px-1 py-1">
                                     <MenuItem v-slot="{ active }">
                                         <router-link to="/dashboard"
-                                            :class="[
+                                                     :class="[
                                               active ? 'bg-primary text-white' : 'text-gray-900',
                                               'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                             ]"

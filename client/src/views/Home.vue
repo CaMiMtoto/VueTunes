@@ -20,7 +20,7 @@ let fetchAlbums = () => {
 }
 
 let fetchSongs = () => {
-    http.get('/songs?per_page=4')
+    http.get('/songs?per_page=6')
         .then((response) => {
 
             songs.value = response.data.data;
@@ -43,13 +43,15 @@ onMounted(() => {
     <div class="flex flex-col gap-4">
         <div>
             <div class="mb-4 flex items-center justify-between">
-                <h1 class="text-2xl font-bold text-primary">For You</h1>
+                <h1 class="text-2xl font-bold text-primary">
+                    New Albums
+                </h1>
                 <router-link to="/albums" class="text-sm text-primary font-bold inline-flex items-center">
                     See All
                     <IconChevronRight/>
                 </router-link>
             </div>
-            <div class="grid md:grid-cols-4 grid-cols-1 gap-3 md:gap-8" v-if="albums.length">
+            <div class="grid md:grid-cols-4 2xl:grid-cols-6 grid-cols-1 gap-3 md:gap-8" v-if="albums.length">
                 <AlbumCard v-for="item in albums" class="rounded-lg hover:opacity-60 cursor-pointer relative"
                            :item="item"/>
             </div>
@@ -77,7 +79,7 @@ onMounted(() => {
             </div>
 
 
-            <div class="grid md:grid-cols-2 grid-cols-1 gap-2 md:gap-2 mb-4" v-if="songs.length">
+            <div class="grid md:grid-cols-2 2xl:grid-cols-3 grid-cols-1 gap-2 md:gap-2 mb-4" v-if="songs.length">
                 <div v-for="item in songs">
                     <SongCard :item="item"/>
                 </div>
