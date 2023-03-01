@@ -4,14 +4,14 @@ import {onMounted, ref} from "vue";
 import http from "../config/axiosClient.js";
 
 import SongCard from "../components/SongCard.vue";
-import router from "../router/index.js";
+import {useRoute} from "vue-router";
 
+const route = useRoute();
 let songs = ref([]);
 
 // get genre slug from route params
-let genreSlug = router.currentRoute.value.params.slug;
 let genre = ref({});
-let fetchGenre = () => {
+let fetchGenre = (genreSlug) => {
 
     http.get('/genres/' + genreSlug)
 
@@ -23,7 +23,7 @@ let fetchGenre = () => {
             console.log(error);
         });
 }
-let fetchSongs = () => {
+let fetchSongs = (genreSlug) => {
 
     http.get('/songs/genre/' + genreSlug)
 
@@ -38,8 +38,9 @@ let fetchSongs = () => {
 }
 
 onMounted(() => {
-    fetchGenre();
-    fetchSongs();
+    let genreSlug =route.params.slug;
+    fetchGenre(genreSlug);
+    fetchSongs(genreSlug);
 });
 
 
@@ -48,13 +49,14 @@ onMounted(() => {
 
 <template>
     <div>
-        <h1 v-if="genre">
+        <h1 v-if="genre" class="mb-3">
             Songs by <strong>{{ genre.name }}</strong> genre
         </h1>
 
-        <div class="" v-if="songs.length">
-            <SongCard v-for="item in songs" class="rounded-lg hover:opacity-60 cursor-pointer relative"
-                      :item="item"/>
+        <div class="grid sm:grid-cols-2 2xl:grid-cols-3 grid-cols-1 gap-2 md:gap-2 mb-4" v-if="songs.length">
+            <div v-for="item in songs">
+                <SongCard :item="item"/>
+            </div>
         </div>
     </div>
 </template>

@@ -9,7 +9,7 @@ import {
     IconChevronDown,
     IconCopy, IconEdit, IconLogout, IconSettings, IconUser
 } from '@tabler/icons-vue';
-import logo from '../../assets/vue.svg'
+import logo from '../../assets/logo.png'
 import NavItem from "./NavItem.vue";
 import {Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/vue'
 import {useAuth} from "../../stores/auth.js";
@@ -32,21 +32,21 @@ onMounted(() => {
 <template>
     <div class="min-h-screen w-full flex bg-[#F1F1F5]">
         <aside class="min-h-screen w-96 border-r px-6 py-10" :class="{'close': !isOpen}">
-            <img :src="logo" alt="logo" class="w-10">
+            <img :src="logo" alt="logo" class="">
             <nav class="flex flex-col my-3 gap-y-4 ">
                 <div class="text-gray-400 text-sm mt-4">Menu</div>
                 <nav-item to="/dashboard" text="Dashboard">
-                    <IconChartPie stroke-width="1"/>
+                    <IconChartPie/>
                 </nav-item>
                 <nav-item to="/admin/genres" text="Manage Genres">
-                    <IconCategory stroke-width="1"/>
+                    <IconCategory/>
                 </nav-item>
 
                 <nav-item to="/admin/albums" text="Manage Albums">
-                    <IconDisc stroke-width="1"/>
+                    <IconDisc/>
                 </nav-item>
                 <nav-item to="/admin/songs" text="Manage Songs">
-                    <IconPlaylist stroke-width="1"/>
+                    <IconPlaylist/>
                 </nav-item>
 
 

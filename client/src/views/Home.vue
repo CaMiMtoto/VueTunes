@@ -79,7 +79,7 @@ onMounted(() => {
             </div>
 
 
-            <div class="grid md:grid-cols-2 2xl:grid-cols-3 grid-cols-1 gap-2 md:gap-2 mb-4" v-if="songs.length">
+            <div class="grid md:grid-cols-2 2xl:grid-cols-3 grid-cols-1 gap-2 md:gap-3 mb-4" v-if="songs.length">
                 <div v-for="item in songs">
                     <SongCard :item="item"/>
                 </div>
