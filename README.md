@@ -1,6 +1,6 @@
 # Music App
 
-This is a simple music app that allows you to play music from your browser.
+This is a simple music app that allows you to view music,albums and genres from your browser.
 It is built using Laravel and Vue.js.
 
 ## Installation
