@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // group add Song CRUD routes,use model binding to get Song instance by slug
     Route::group(['prefix' => 'songs'], function () {
         Route::get('/', [SongController::class, 'index']);
+        Route::get('/all', [SongController::class, 'all']);
         Route::post('/', [SongController::class, 'store']);
         Route::get('/{song:slug}', [SongController::class, 'show']);
         Route::put('/{song}', [SongController::class, 'update']);

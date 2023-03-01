@@ -13,6 +13,15 @@ use Illuminate\Support\Str;
 
 class SongController extends Controller
 {
+    public function all()
+    {
+        $songs = Song::query()
+            ->with(['album', 'genre'])
+            ->orderBy('title')
+            ->get();
+        return SongResource::collection($songs)
+            ->response();
+    }
 
     public function index(): JsonResponse
     {
