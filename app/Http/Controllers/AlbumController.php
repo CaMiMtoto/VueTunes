@@ -17,6 +17,7 @@ class AlbumController extends Controller
     public function all()
     {
         $albums = Album::query()
+            ->withCount('songs')
             ->orderBy('title')
             ->get();
         return AlbumResource::collection($albums)

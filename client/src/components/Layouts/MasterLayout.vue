@@ -58,16 +58,7 @@ onMounted(() => {
                         class="bg-primary text-white rounded-full flex items-center justify-center p-2">
                     <IconChevronLeft class="transform " :class="{'rotate-180': !isOpen}"/>
                 </button>
-                <div class="relative md:w-1/2 mr-3 hidden md:block">
 
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <IconSearch class="w-4 text-gray-500"/>
-                    </div>
-                    <input id="member_email"
-                           class="bg-white border border-gray-100 text-gray-900 text-sm rounded-full focus:outline-none  block w-full pl-10 p-2.5 focus:border-primary"
-                           name="email_address" placeholder="Search.."
-                           required="" type="email">
-                </div>
 
                 <div class="flex items-center">
                     <div class="mr-2">

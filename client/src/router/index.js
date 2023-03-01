@@ -27,6 +27,16 @@ let routes = [
                 path: 'songs',
                 name: 'songs',
                 component: () => import('../views/Songs.vue'),
+            },
+            {
+                path: 'songs/genre/:slug',
+                name: 'songs.genre',
+                component: () => import('../views/SongsByGenre.vue'),
+            },
+            {
+                path: 'songs/album/:slug',
+                name: 'songs.album',
+                component: () => import('../views/SongsByAlbum.vue'),
             }
         ],
 

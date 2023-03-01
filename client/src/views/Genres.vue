@@ -51,7 +51,7 @@ onMounted(() => {
                                     {{ item.songs_count }} songs
                                 </p>
                             </div>
-                            <router-link to="" v-if="item.songs_count"
+                            <router-link :to="`/songs/genre/${item.slug}`" v-if="item.songs_count"
                                          class="inline-flex items-center text-sm bg-primary-dark px-3 rounded py-1.5 text-white">
                                 <IconPlaylist/>
                                 Songs

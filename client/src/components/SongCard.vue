@@ -1,13 +1,12 @@
 <template>
     <div
          class="flex flex-col my-3 md:flex-row justify-between items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row hover:bg-gray-100">
-        <div class="flex">
+        <div class="flex flex-col md:flex-row w-full md:w-auto">
             <div class="h-24">
-                <img class="object-cover w-36 h-full  rounded-t-lg  md:rounded-none md:rounded-l-lg"
-                     :src="item.album.cover_image_url" alt="">
+                <img class="object-cover w-full md:w-36 h-full  rounded-t-lg  md:rounded-none md:rounded-l-lg" :src="item.album.cover_image_url" alt="">
             </div>
             <div class="flex flex-col justify-between px-4 leading-normal">
-                <h5 class=" text-xl mt-2 font-bold tracking-tight text-gray-900 ">
+                <h5 class="text-xl mt-2 font-bold tracking-tight text-gray-900 ">
                     {{ item.title }}
                 </h5>
                 <p class=" font-normal text-gray-70">

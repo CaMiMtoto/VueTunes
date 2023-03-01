@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SongController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::get('/home', [HomeController::class, 'index']);
 
     // group add Genre CRUD routes,use model binding to get Genre instance by slug
     Route::group(['prefix' => 'genres'], function () {
@@ -51,6 +54,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/{song:slug}', [SongController::class, 'show']);
         Route::put('/{song}', [SongController::class, 'update']);
         Route::delete('/{song:slug}', [SongController::class, 'destroy']);
+
+        Route::get("/genre/{genre:slug}", [SongController::class, 'getSongsByGenre']);
+        Route::get("/album/{album:slug}", [SongController::class, 'getSongsByAlbum']);
 
     });
 

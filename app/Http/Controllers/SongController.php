@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSongRequest;
 use App\Http\Requests\UpdateSongRequest;
 use App\Http\Resources\SongResource;
+use App\Models\Album;
+use App\Models\Genre;
 use App\Models\Song;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -86,6 +88,26 @@ class SongController extends Controller
         $song->delete();
 
         return SongResource::make($song)
+            ->response();
+    }
+
+    public function getSongsByGenre(Genre $genre)
+    {
+        $songs = $genre->songs()
+            ->with(['album', 'genre'])
+            ->orderBy('title')
+            ->get();
+        return SongResource::collection($songs)
+            ->response();
+    }
+
+    public function getSongsByAlbum(Album $album)
+    {
+        $songs = $album->songs()
+            ->with(['album', 'genre'])
+            ->orderBy('title')
+            ->get();
+        return SongResource::collection($songs)
             ->response();
     }
 }

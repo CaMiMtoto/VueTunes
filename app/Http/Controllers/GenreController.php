@@ -56,7 +56,7 @@ class GenreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Genre $genre): Response
+    public function show(Genre $genre)
     {
         return GenreResource::make($genre)
             ->response();
