@@ -208,7 +208,7 @@ onMounted(() => {
             </primary-button>
         </div>
 
-        <div class="relative overflow-x-auto shadow-sm sm:rounded-lg border">
+        <div class="relative overflow-x-auto  sm:rounded-lg border">
             <Table>
                 <Thead>
                 <tr>
