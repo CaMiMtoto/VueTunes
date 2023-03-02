@@ -147,7 +147,7 @@ onMounted(() => {
                 </div>
                 <div v-else>
                     <router-link to="/login"
-                                 class="bg-primary text-white rounded-lg flex items-center justify-center px-8 py-1">
+                                 class="bg-primary-light text-primary-dark rounded-full flex items-center justify-center px-8 py-1 hover:bg-primary hover:text-white">
                         Login
                     </router-link>
                 </div>
