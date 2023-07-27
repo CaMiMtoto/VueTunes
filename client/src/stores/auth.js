@@ -23,7 +23,7 @@ export const useAuth = defineStore('auth', {
         register(data) {
             return http.post('/register', data)
                 .then(({data}) => {
-                    localStorage.setItem('TOKEN', data.token);
+                    localStorage.setItem('TOKEN', JSON.stringify(data.token));
                     localStorage.setItem('USER', JSON.stringify(data.user));
                 });
         },

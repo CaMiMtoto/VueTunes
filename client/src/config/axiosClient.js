@@ -2,7 +2,7 @@ import axios from "axios";
 import {useAuth} from "../stores/auth.js";
 
 const http = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "http://zatec-music-app.test/api",
     headers: {
         "Content-type": "application/json",
     },
